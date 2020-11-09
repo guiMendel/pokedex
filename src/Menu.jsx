@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "./css/styles.css";
 // icons
 import { AiFillStar } from "react-icons/ai";
 import { RiLoginBoxFill } from "react-icons/ri";

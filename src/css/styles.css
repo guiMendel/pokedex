@@ -7,7 +7,8 @@
 :root {
   /* variaveis */
   --text-color: #dfeff0;
-  --bg-color: #3b383b;
+  --text-gray-color: #5e4d55;
+  --bg-color: #242224;
   --second-color: #3f2934;
   --third-color: #522e52;
 
@@ -25,20 +26,17 @@ body {
   background: var(--bg-color);
 }
 
-.App {
-  --header-size: 4rem;
-
+#root {
   min-height: 100vh;
 
   color: var(--text-color);
 }
 
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
 
   width: 100%;
-  height: var(--header-size);
   background: var(--second-color);
 
   padding: 1rem 2rem;
@@ -54,7 +52,6 @@ main {
   --pokemon-size: 10rem;
 
   margin: 2rem 1rem;
-  margin-top: calc(var(--header-size) + 2rem);
 
   display: grid;
   grid-template-columns: repeat(auto-fit, calc(var(--pokemon-size) + 1.2rem));
@@ -79,7 +76,12 @@ main {
 .pokemon div {
   /* tamanho do circulo em volta dos pokemons */
   --display-circle-size: calc(var(--pokemon-size) - var(--pokemon-size) * 0.3);
-  background: #522e52;
+  /* background: #522e52; */
+  background: linear-gradient(
+    45deg,
+    var(--color1, #522e52),
+    var(--color2, #522e52)
+  );
 
   border-radius: 50%;
   width: var(--display-circle-size);

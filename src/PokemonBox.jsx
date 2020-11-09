@@ -1,5 +1,8 @@
 import React from "react";
-import "./styles.css";
+import "./css/styles.css";
+
+// cores dos tipos de pokemon
+import kind_color, { get_kind } from "./color-relations";
 
 // icons
 import { AiOutlineStar } from "react-icons/ai";
@@ -7,7 +10,12 @@ import { AiOutlineStar } from "react-icons/ai";
 export default function Pokemon({ name, image_url, kind }) {
   return (
     <div className="pokemon">
-      <div>
+      <div
+        style={{
+          "--color1": kind_color[get_kind(kind, 0)],
+          "--color2": kind_color[get_kind(kind, 1)]
+        }}
+      >
         <img src={image_url} alt="" />
       </div>
       <AiOutlineStar size="3rem" />

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Pokemon from "./Pokemon";
-import "./styles.css";
+import React, { useState } from "react";
+import Pokemon from "./PokemonBox";
+import "./css/styles.css";
 
 export default function Pokedex() {
   const [page, setPage] = useState({
