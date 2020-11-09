@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* variaveis */
+  --text-color: #dfeff0;
+  --bg-color: #3b383b;
+  --second-color: #3f2934;
+
+  font-size: 10px;
+}
+
+body,
+input,
+button,
+textarea {
+  font: 400 1.5rem/1 sans-serif;
+}
+
+.App {
+  --header-size: 4rem;
+
+  min-height: 100vh;
+
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  position: fixed;
+  top: 0;
+
+  width: 100%;
+  height: var(--header-size);
+  background: var(--second-color);
+
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main {
+  margin-top: var(--header-size);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 20rem);
+  justify-content: center;
+  justify-items: center;
+  gap: 2rem;
+}
