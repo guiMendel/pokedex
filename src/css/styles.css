@@ -11,6 +11,7 @@
   --bg-color: #242224;
   --second-color: #3f2934;
   --third-color: #522e52;
+  --red-color: #722135;
 
   font-size: 10px;
 }
@@ -30,6 +31,11 @@ body {
   min-height: 100vh;
 
   color: var(--text-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 header {
@@ -63,6 +69,11 @@ main {
   z-index: 10;
 }
 
+main a {
+  width: 100%;
+  height: 100%;
+}
+
 .pokemon {
   /* background: #c532c5; */
   position: relative;
@@ -79,8 +90,8 @@ main {
   /* background: #522e52; */
   background: linear-gradient(
     45deg,
-    var(--color1, #522e52),
-    var(--color2, #522e52)
+    var(--color1, var(--second-color)),
+    var(--color2, var(--second-color))
   );
 
   border-radius: 50%;
@@ -96,7 +107,7 @@ main {
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--second-color);
+  background: var(--third-color);
 
   padding: 0.5rem;
   border-radius: 50%;

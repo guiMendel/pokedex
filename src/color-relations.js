@@ -4,7 +4,7 @@ const kind_color = {
   grass: "#118642",
   fire: "#922314",
   water: "#002369",
-  electric: "#859410",
+  electric: "#b39f07",
   ice: "#5a9296",
   fighting: "#800b0b",
   ground: "#452615",

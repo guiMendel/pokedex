@@ -3,6 +3,7 @@ import Pokemon from "./PokemonBox";
 import "./css/styles.css";
 
 export default function Pokedex() {
+  // Quando colocar a API, tira essa inicialização do useState e deixa um objeto vazio {}
   const [page, setPage] = useState({
     data: [
       {
@@ -311,6 +312,7 @@ export default function Pokedex() {
     prev_page: null
   });
 
+  // Colocar uma API aqui, GET, na rota "https://pokedex20201.herokuapp.com/pokemons?page={page}"
   // useEffect(() => {
   //   setPage();
   // }, []);

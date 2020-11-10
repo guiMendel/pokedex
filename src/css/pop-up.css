@@ -9,6 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: initial;
 }
 
 .curtain div {
@@ -26,25 +28,31 @@
   border-radius: 50%;
 }
 
-.pokemon-details {
+.pop-up {
   background: var(--third-color);
   overflow: hidden;
   padding-bottom: 2rem;
   border-radius: 3rem;
 
   min-width: 25rem;
+  max-width: 90vw;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* esclui a div pois seus filhos ja tem 1 de margem no topo */
-.pokemon-details > * + :not(div) {
-  margin-top: 1rem;
+.pop-up > :not(h1) {
+  margin: 0 3rem;
 }
 
-.pokemon-details h1 {
+/* esclui a div pois seus filhos ja tem 1 de margem no topo */
+.pop-up > * + :not(div),
+.pop-up > section > * + :not(div) {
+  margin-top: 1.5rem;
+}
+
+.pop-up h1 {
   padding: 2rem 0;
   background: var(--second-color);
   border-radius: 0 0 40% 40%;
@@ -56,40 +64,79 @@
   width: 100%;
 }
 
-.pokemon-details h1 span {
+.pop-up h1 span {
   text-transform: capitalize;
 }
 
-.pokemon-details h1 small {
+.pop-up h1 small {
   color: var(--text-gray-color);
   font-size: 2.2rem;
 }
 
-.pokemon-details div {
+.pop-up section {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pop-up div {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 
   width: 20rem;
+}
+
+.pop-up div span {
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.7rem;
+  margin: 1rem 0.5rem 0;
+
+  background: var(--color);
 
   text-transform: uppercase;
   font-size: 1.2rem;
   font-weight: 700;
 }
 
-.pokemon-details div span {
-  padding: 0.5rem 0.7rem;
-  border-radius: 0.7rem;
-  margin: 1rem 0.5rem 0;
-
-  background: var(--color);
-}
-
-.pokemon-details div > * + * {
+.pop-up div > * + * {
   margin-left: 1rem;
 }
 
-.pokemon-details > span svg {
+.pop-up span {
+  /* max-width: 80%; */
+  text-align: center;
+}
+
+.pop-up span svg {
   margin-right: 1rem;
+}
+
+.pop-up input {
+  width: 80%;
+  background: var(--bg-color);
+  color: var(--text-color);
+
+  padding: 0.5rem 1rem;
+  border-radius: 3rem;
+  border: 0;
+}
+
+.pop-up button {
+  width: 80%;
+  background: var(--second-color);
+  color: var(--text-color);
+
+  padding: 0.5rem 1rem;
+  border-radius: 3rem;
+  border: 0;
+
+  cursor: pointer;
+}
+
+.pop-up hr {
+  width: 80%;
 }

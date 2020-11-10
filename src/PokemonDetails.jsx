@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import "./css/styles.css";
-import "./css/pokemon-details.css";
+import "./css/pop-up.css";
 
 // icons
 import { AiOutlineStar } from "react-icons/ai";
 import { FaWeightHanging } from "react-icons/fa";
 import { GiBodyHeight } from "react-icons/gi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // cores dos tipos de pokemon
 import kind_color from "./color-relations";
 
 export default function PokemonDetails() {
-  const { pokemon_id: requested_pokemon } = useParams();
+  const { pokemon: requested_pokemon } = useParams();
+  // Aqui também tira essa inicialização quando implementar a API
   const [pokemon, setPokemon] = useState({
     id: 2,
     name: "ivysaur",
@@ -27,11 +28,14 @@ export default function PokemonDetails() {
     updated_at: "2020-05-25T04:48:23.261Z"
   });
 
+  // Usa a API com GET na rota https://pokedex20201.herokuapp.com/pokemons/{requested_pokemon} e aplica em setPokemon, usando o mesmo esquema de useEffect com lista vazia de dependências
+
   return (
-    <div className="curtain">
+    <Link to="/" className="curtain">
+      {/* <div className="curtain"> */}
       <div>
         <AiOutlineStar size="5rem" />
-        <div className="pokemon-details">
+        <div className="pop-up">
           {console.log(requested_pokemon)}
           <h1>
             <span>{pokemon.name}</span>
@@ -62,6 +66,7 @@ export default function PokemonDetails() {
           </span>
         </div>
       </div>
-    </div>
+      {/* </div> */}
+    </Link>
   );
 }
