@@ -1,25 +1,44 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import "./css/styles.css";
 import "./css/pop-up.css";
 
-export default function LogIn() {
+export default function LogIn({ username, setUsername }) {
   const [input, setInput] = useState("");
-  const [newUser, setNewUser] = useState("");
+  const [requestedUsername, setRequestedUsername] = useState("");
+  const history = useHistory();
 
   function getUser() {
-    // Fazer uma requisição GET na rota https://pokedex20201.herokuapp.com/users/{input}. Verificar se houve erro. Se sim, aplicar setNewUser(input), para que a página pergunte ao usuário se ele deseja criar esse novo usuário.
+    // Fazer uma requisição GET na rota https://pokedex20201.herokuapp.com/users/{input}. Verificar se houve erro. Se sim, aplicar setRequestedUsername(input), para que a página pergunte ao usuário se ele deseja criar esse novo usuário.
     // Enquanto você não aplica as APIs, já faz o set direto, mas depois que voê fizer, deixe ele só quando der erro.
-    setNewUser(input);
+    // Se não der erro, coloca para chamar a função setUsername(input), como no comentário
+
+    // Se houver erro:
+    setRequestedUsername(input);
+    // Se não houver erro:
+    // setUsername(input)
+    // history.goBack();
   }
 
   function createUser() {
-    // Fazer uma requisição POST na rota https://pokedex20201.herokuapp.com/users, com uma body {username=newUser}
-    console.log(`Enviando requisição para criar o usuário ${newUser}...`);
+    // Fazer uma requisição POST na rota https://pokedex20201.herokuapp.com/users, com uma body {username=requestedUsername}
+    console.log(
+      `Enviando requisição para criar o usuário ${requestedUsername}...`
+    );
+    // Somente permita a chamada da função setUsername se a requisição POST não retornar erro. Se der erro, mostre a mensagem de erro.
+
+    // Se não houver erro:
+    setUsername(requestedUsername);
+    // history.goBack();
+    // Se houver erro:
+    // alert(
+    //   "Não foi possível se conectar com o servidor.\nPor favor, tente novamente mais tarde."
+    // );
   }
 
   return (
     <Link to="/" className="curtain">
+      {username ? <Redirect to="/" /> : null}
       <div className="pop-up" onClick={(e) => e.preventDefault()}>
         <h1>Log In</h1>
         <label htmlFor="username" name="username">
@@ -31,17 +50,18 @@ export default function LogIn() {
           onChange={(e) => setInput(e.target.value)}
         />
         <button onClick={getUser}>Enviar</button>
-        {newUser ? (
+        {requestedUsername ? (
           <section>
             <hr />
             <span>
-              Não encontramos o usuário <strong>"{newUser}"</strong>.<br />
+              Não encontramos o usuário <strong>"{requestedUsername}"</strong>.
+              <br />
               Deseja criar um novo com esse nome?
             </span>
             <button onClick={createUser}>Sim</button>
             <button
               style={{ background: "var(--red-color)" }}
-              onClick={() => setNewUser("")}
+              onClick={() => setRequestedUsername("")}
             >
               Cancelar
             </button>

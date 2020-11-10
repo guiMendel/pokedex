@@ -2,7 +2,7 @@ import React from "react";
 import "./css/styles.css";
 
 // cores dos tipos de pokemon
-import kind_color, { get_kind } from "./color-relations";
+import kind_color, { get_kind } from "./assets/color-relations";
 
 // icons
 import { AiOutlineStar } from "react-icons/ai";

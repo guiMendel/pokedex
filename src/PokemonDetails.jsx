@@ -9,7 +9,7 @@ import { GiBodyHeight } from "react-icons/gi";
 import { Link, useParams } from "react-router-dom";
 
 // cores dos tipos de pokemon
-import kind_color from "./color-relations";
+import kind_color from "./assets/color-relations";
 
 export default function PokemonDetails() {
   const { pokemon: requested_pokemon } = useParams();
