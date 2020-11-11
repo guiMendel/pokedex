@@ -10,7 +10,16 @@ export default function Menu({ username, openLogOut, openLogIn }) {
     <header>
       <Route exact path="/">
         <Link to="/pokerites">
-          <AiFillStar size="2rem" />
+          <AiFillStar
+            size="2rem"
+            // Previne que o usuário acesse uma página de favoritos vazia
+            onClick={(event) => {
+              if (!username) {
+                event.preventDefault();
+                openLogIn();
+              }
+            }}
+          />
         </Link>
       </Route>
       <Route exact path="/pokerites">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import "./css/styles.css";
@@ -13,57 +13,7 @@ import PokemonDetails from "./PokemonDetails";
 
 export default function App() {
   const [username, setUsername] = useStickyState("username");
-  // Quando colocar a API, tira essa inicialização do useState e deixa um objeto vazio {}
-  const [pokerites, setPokerites] = useState([
-    {
-      id: 25,
-      name: "pikachu",
-      image_url:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-      number: 25,
-      weight: 60,
-      height: 4,
-      kind: "electric",
-      created_at: "2020-05-25T04:48:23.630Z",
-      updated_at: "2020-05-25T04:48:23.630Z"
-    },
-    {
-      id: 10,
-      name: "caterpie",
-      image_url:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
-      number: 10,
-      weight: 29,
-      height: 3,
-      kind: "bug",
-      created_at: "2020-05-25T04:48:23.401Z",
-      updated_at: "2020-05-25T04:48:23.401Z"
-    },
-    {
-      id: 59,
-      name: "zubat",
-      image_url:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
-      number: 41,
-      weight: 75,
-      height: 8,
-      kind: "poison;flying",
-      created_at: "2020-05-25T04:48:24.285Z",
-      updated_at: "2020-05-25T04:48:24.285Z"
-    },
-    {
-      id: 21,
-      name: "spearow",
-      image_url:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png",
-      number: 21,
-      weight: 20,
-      height: 3,
-      kind: "normal;flying",
-      created_at: "2020-05-25T04:48:23.542Z",
-      updated_at: "2020-05-25T04:48:23.542Z"
-    }
-  ]);
+  const [pokerites, setPokerites] = useState([]);
   const [popup, setPopup] = useState({
     pokemonDetails: null,
     logIn: null,
@@ -79,11 +29,12 @@ export default function App() {
   }
 
   // Pega a lista de pokemons favoritos do usuario
+  // Não muda a parte que verifica se username é nulo! Coloca a parte da requisição no else desse if
   // Colocar uma requisição API aqui, GET, na rota "https://pokedex20201.herokuapp.com/users/{username}"
   // Aplicar setPokerites no atributo "pokemons" do resultado da requisição, algo como setPokerites(resultado.pokemons)
-  // useEffect(() => {
-  //   setPokerites();
-  // }, [username]);
+  useEffect(() => {
+    if (!username) setPokerites([]);
+  }, [username]);
 
   // Atualiza a lista de pokemons favoritos no servidor e aqui
   function addPokerite(pokemon) {
