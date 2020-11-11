@@ -38,18 +38,21 @@ export default function PokemonDetails({
         </h1>
         <img src={pokemon.image_url} alt="" />
         <div>
-          {pokemon.kind.split(";").map((kind) => {
-            return (
-              <span
-                key={kind}
-                style={{
-                  "--color": kind_color[kind]
-                }}
-              >
-                {kind}
-              </span>
-            );
-          })}
+          {pokemon.kind
+            .split(";")
+            .sort()
+            .map((kind) => {
+              return (
+                <span
+                  key={kind}
+                  style={{
+                    "--color": kind_color[kind]
+                  }}
+                >
+                  {kind}
+                </span>
+              );
+            })}
         </div>
         <span>
           <FaWeightHanging size="1em" />

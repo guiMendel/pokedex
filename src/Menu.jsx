@@ -1,7 +1,8 @@
 import React from "react";
 import "./css/styles.css";
 // icons
-import { AiFillStar, AiFillHome } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
+import { HiHome } from "react-icons/hi";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { Link, Route } from "react-router-dom";
 
@@ -29,7 +30,7 @@ export default function Menu({ username, openLogOut, openLogIn }) {
       <Route exact path="/pokerites">
         <Link to="/">
           <div>
-            <AiFillHome size="1.4em" />
+            <HiHome size="1.4em" />
             <span className="on-large">pokedex</span>
           </div>
         </Link>

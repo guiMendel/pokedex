@@ -30,7 +30,7 @@ body,
 input,
 button,
 textarea {
-  font: 400 1.5rem/1 sans-serif;
+  font: 500 1.5rem/1 "Montserrat", sans-serif;
 }
 
 body {
@@ -77,6 +77,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   z-index: 100;
 
@@ -99,13 +100,74 @@ header div > * + * {
 }
 
 header div span {
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.page-menu {
+  width: max-content;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 10;
+  padding: 1rem 2rem 1rem;
+
+  animation-name: slide_up;
+  animation-duration: 300ms;
+}
+
+.page-menu > :not(div) {
+  /* necessario para nao ficar atras do plano de fundo, por alguma razão elementos não posicionados não ficam na frente dos posicionados */
+  position: relative;
+  cursor: pointer;
+}
+
+.page-menu [data-active="false"] {
+  cursor: initial;
+  color: var(--text-gray-color);
+}
+
+.page-menu > div {
+  position: absolute;
+  top: 0;
+
+  width: 140%;
+  height: 300%;
+  /* z-index: 0; */
+
+  background: var(--second-color);
+  border-radius: 50%;
+}
+
+.page-menu input {
+  width: 2em;
+  text-align: center;
+
+  border: 0;
+  border-bottom: 2px solid var(--text-color);
+  border-radius: 1rem 1rem 0 0;
+  background: none;
+  color: inherit;
+
+  font-size: 1.7rem;
+}
+
+.page-menu input:focus {
+  background: var(--bg-color);
+  outline: none;
 }
 
 main {
   --pokemon-size: 10rem;
 
-  margin: 2rem 1rem;
+  margin: 2rem 1rem 4.5rem;
 
   display: grid;
   grid-template-columns: repeat(auto-fit, calc(var(--pokemon-size) + 1.2rem));
@@ -115,6 +177,10 @@ main {
   row-gap: 3rem;
 
   z-index: 10;
+}
+
+main h2 {
+  grid-column-start: span 3;
 }
 
 main a {
@@ -130,6 +196,9 @@ main a {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  animation-name: fadein;
+  animation-duration: 300ms;
 }
 
 .pokemon div {
@@ -171,7 +240,7 @@ main a {
 }
 
 .pokemon svg.pokerite + div {
-  border: 2px solid var(--gold-color);
+  border: 5px solid var(--gold-color);
 }
 
 .pokemon span {
@@ -179,6 +248,10 @@ main a {
   letter-spacing: 0.1rem;
   padding-bottom: 0.7rem;
   /* border-bottom: 1px solid var(--text-color); */
+}
+
+.pokemon:hover div {
+  border: 5px solid var(--text-color);
 }
 
 /* animações */
@@ -189,6 +262,24 @@ main a {
   }
   to {
     margin-bottom: 0;
+  }
+}
+
+@keyframes slide_up {
+  from {
+    bottom: -5rem;
+  }
+  to {
+    bottom: 0;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -203,10 +294,15 @@ main a {
     background: var(--second-color);
   }
 
+  .page-menu div {
+    background: var(--third-color);
+  }
+
   main {
     --pokemon-size: 12rem;
     column-gap: 5rem;
     row-gap: 4rem;
+    margin: 2rem 10vw initial;
   }
 
   .pokemon {
@@ -214,15 +310,15 @@ main a {
   }
 
   .pokemon svg.pokerite + div {
-    border-width: 3px;
+    border-width: 6px;
+  }
+
+  .pokemon:hover div {
+    border-width: 6px;
   }
 
   header {
     font-size: 2rem;
     background: linear-gradient(var(--bg-color), rgb(0, 0, 0, 0));
-  }
-
-  main {
-    margin: 2rem 10vw;
   }
 }

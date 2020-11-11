@@ -20,7 +20,7 @@ const kind_color = {
 };
 export default kind_color;
 export function get_kind(kind, index) {
-  let got = kind.split(";")[index];
+  let got = kind.split(";").sort()[index];
   // se pedir um indice que não existe, pega o primeiro
   if (!got && index > 0) got = kind.split(";")[0];
   return got;

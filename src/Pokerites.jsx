@@ -11,18 +11,22 @@ export default function Pokerites({
 }) {
   return (
     <main>
-      {pokerites.map((pokemon) => {
-        return (
-          <Pokemon
-            pokemon={pokemon}
-            starred={true}
-            addPokerite={addPokerite}
-            removePokerite={removePokerite}
-            key={pokemon.id}
-            selectSelf={() => selectPokemon(pokemon)}
-          />
-        );
-      })}
+      {pokerites.length > 0 ? (
+        pokerites.map((pokemon) => {
+          return (
+            <Pokemon
+              pokemon={pokemon}
+              starred={true}
+              addPokerite={addPokerite}
+              removePokerite={removePokerite}
+              key={pokemon.id}
+              selectSelf={() => selectPokemon(pokemon)}
+            />
+          );
+        })
+      ) : (
+        <h2>Você ainda não salvou nenhum pokerite :(</h2>
+      )}
     </main>
   );
 }

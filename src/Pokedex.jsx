@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pokemon from "./PokemonBox";
 import "./css/styles.css";
+
+import { TiChevronLeft, TiChevronRight } from "react-icons/ti";
 
 export default function Pokedex({
   selectPokemon,
@@ -9,7 +11,9 @@ export default function Pokedex({
   removePokerite
 }) {
   // Quando colocar a API, tira essa inicialização do useState e deixa um objeto vazio {}
-  const [page, setPage] = useState({
+  const [page, setPage] = useState(1);
+  const [inputPage, setInputPage] = useState(page);
+  const [pokemons, setPokemons] = useState({
     data: [
       {
         id: 1,
@@ -317,27 +321,66 @@ export default function Pokedex({
     prev_page: null
   });
 
-  // Pega a lista de pokemons da pagina atual
-  // Colocar uma API aqui, GET, na rota "https://pokedex20201.herokuapp.com/pokemons?page={page}"
+  // Pega a lista de pokemons da primeira pagina
+  // Colocar uma API aqui, GET, na rota "https://pokedex20201.herokuapp.com/pokemons"
   // useEffect(() => {
-  //   setPage();
+  //   setPokemons(result);
   // }, []);
 
+  function jumpToPage(target) {
+    console.log(`Buscando a página ${target}...`);
+    // Colocar uma API aqui, GET, na rota "https://pokedex20201.herokuapp.com/pokemons?page={target}", colocar o resultado nessa variacvel result. Pode apagar essa inicialização padrão, ela só existe por enquanto que não tem a requisição.
+    const result = { size: 0 };
+
+    if (result.size <= 0) setInputPage(page);
+    else {
+      setPage(target);
+      setPokemons(result);
+    }
+  }
+
   return (
-    <main>
-      {/* {console.log(page)} */}
-      {page.data.map((pokemon) => {
-        return (
-          <Pokemon
-            pokemon={pokemon}
-            starred={pokerites.some((pokerite) => pokerite.id === pokemon.id)}
-            addPokerite={addPokerite}
-            removePokerite={removePokerite}
-            selectSelf={() => selectPokemon(pokemon)}
-            key={pokemon.id}
-          />
-        );
-      })}
-    </main>
+    <div>
+      <div className="page-menu">
+        {/* a div vazia é o fundo do menu */}
+        <div></div>
+        <TiChevronLeft
+          size="1.4em"
+          onClick={() => pokemons.prev_page && jumpToPage(page - 1)}
+          // esconde se não existir essa opção
+          data-active={pokemons.prev_page ? true : false}
+        />
+        <input
+          type="text"
+          maxLength="3"
+          value={inputPage}
+          onChange={(e) =>
+            setInputPage(parseInt(e.target.value, 10) || inputPage)
+          }
+          onKeyPress={(e) => e.key === "Enter" && jumpToPage(inputPage)}
+        />
+        <TiChevronRight
+          size="1.4em"
+          onClick={() => pokemons.next_page && jumpToPage(page + 1)}
+          // esconde se não existir essa opção
+          data-active={pokemons.next_page ? true : false}
+        />
+      </div>
+      <main>
+        {/* {console.log(page)} */}
+        {pokemons.data.map((pokemon) => {
+          return (
+            <Pokemon
+              pokemon={pokemon}
+              starred={pokerites.some((pokerite) => pokerite.id === pokemon.id)}
+              addPokerite={addPokerite}
+              removePokerite={removePokerite}
+              selectSelf={() => selectPokemon(pokemon)}
+              key={pokemon.id}
+            />
+          );
+        })}
+      </main>
+    </div>
   );
 }
