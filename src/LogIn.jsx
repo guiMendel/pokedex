@@ -48,6 +48,7 @@ export default function LogIn({ username, setUsername, clearPopup }) {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyPress={(e) => e.key === "Enter" && getUser()}
       />
       <button onClick={getUser}>Enviar</button>
       {requestedUsername ? (
