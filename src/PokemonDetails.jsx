@@ -20,11 +20,11 @@ export default function PokemonDetails({
   function switchStar(event) {
     if (starred) removePokerite(pokemon);
     else addPokerite(pokemon);
-    event.stopPropagation();
+    // event.stopPropagation();
   }
 
   return (
-    <div>
+    <div onClick={(e) => e.stopPropagation()}>
       {starred ? (
         <AiFillStar size="5rem" className="pokerite" onClick={switchStar} />
       ) : (

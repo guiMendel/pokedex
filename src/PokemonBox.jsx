@@ -23,9 +23,9 @@ export default function Pokemon({
   return (
     <div className="pokemon">
       {starred ? (
-        <AiFillStar size="3rem" className="pokerite" onClick={switchStar} />
+        <AiFillStar size="2em" className="pokerite" onClick={switchStar} />
       ) : (
-        <AiOutlineStar size="3rem" onClick={switchStar} />
+        <AiOutlineStar size="2em" onClick={switchStar} />
       )}
       <div
         style={{

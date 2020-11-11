@@ -20,6 +20,8 @@ h1 {
   --third-color: #522e52;
   --red-color: #722135;
   --gold-color: #ffd700;
+  --piss-color: #ecdb7a;
+  --dark-color: #131113;
 
   font-size: 10px;
 }
@@ -57,14 +59,20 @@ a {
   color: inherit;
 }
 
+.on-large {
+  display: none;
+}
+
 header {
   position: sticky;
   top: 0;
 
+  font-size: 1.7rem;
+
   width: 100%;
   background: var(--second-color);
 
-  padding: 1rem 2rem;
+  padding: 0.7em 1.3em;
 
   display: flex;
   align-items: center;
@@ -130,8 +138,8 @@ main a {
   /* background: #522e52; */
   background: linear-gradient(
     45deg,
-    var(--color1, var(--second-color)),
-    var(--color2, var(--second-color))
+    var(--color1, var(--red-color)),
+    var(--color2, var(--red-color))
   );
 
   border-radius: 50%;
@@ -181,5 +189,40 @@ main a {
   }
   to {
     margin-bottom: 0;
+  }
+}
+
+/* responsividade */
+
+@media (min-width: 650px) {
+  .on-large {
+    display: initial;
+  }
+
+  body {
+    background: var(--second-color);
+  }
+
+  main {
+    --pokemon-size: 12rem;
+    column-gap: 5rem;
+    row-gap: 4rem;
+  }
+
+  .pokemon {
+    font-size: 1.7rem;
+  }
+
+  .pokemon svg.pokerite + div {
+    border-width: 3px;
+  }
+
+  header {
+    font-size: 2rem;
+    background: linear-gradient(var(--bg-color), rgb(0, 0, 0, 0));
+  }
+
+  main {
+    margin: 2rem 10vw;
   }
 }
