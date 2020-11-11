@@ -26,6 +26,17 @@
   padding: 1rem;
   background: var(--second-color);
   border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.curtain div > svg.pokerite {
+  background: var(--gold-color);
+  color: var(--third-color);
+}
+
+.curtain div > svg.pokerite + div {
+  border: 5px solid var(--gold-color);
 }
 
 .pop-up {

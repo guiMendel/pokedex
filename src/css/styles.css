@@ -12,6 +12,7 @@
   --second-color: #3f2934;
   --third-color: #522e52;
   --red-color: #722135;
+  --gold-color: #ffd700;
 
   font-size: 10px;
 }
@@ -52,6 +53,24 @@ header {
   justify-content: space-between;
 
   z-index: 100;
+}
+
+header > * {
+  cursor: pointer;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+header div > * + * {
+  margin-left: 1rem;
+}
+
+header div span {
+  font-weight: 600;
 }
 
 main {
@@ -101,6 +120,7 @@ main a {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .pokemon svg {
@@ -111,6 +131,16 @@ main a {
 
   padding: 0.5rem;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.pokemon svg.pokerite {
+  background: var(--gold-color);
+  color: var(--third-color);
+}
+
+.pokemon svg.pokerite + div {
+  border: 2px solid var(--gold-color);
 }
 
 .pokemon span {

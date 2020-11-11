@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Pokemon from "./PokemonBox";
 import "./css/styles.css";
 
-export default function Pokedex() {
+export default function Pokedex({
+  selectPokemon,
+  pokerites,
+  addPokerite,
+  removePokerite
+}) {
   // Quando colocar a API, tira essa inicialização do useState e deixa um objeto vazio {}
   const [page, setPage] = useState({
     data: [
@@ -312,6 +317,7 @@ export default function Pokedex() {
     prev_page: null
   });
 
+  // Pega a lista de pokemons da pagina atual
   // Colocar uma API aqui, GET, na rota "https://pokedex20201.herokuapp.com/pokemons?page={page}"
   // useEffect(() => {
   //   setPage();
@@ -321,7 +327,16 @@ export default function Pokedex() {
     <main>
       {/* {console.log(page)} */}
       {page.data.map((pokemon) => {
-        return <Pokemon {...pokemon} key={pokemon.id} />;
+        return (
+          <Pokemon
+            pokemon={pokemon}
+            starred={pokerites.some((pokerite) => pokerite.id === pokemon.id)}
+            addPokerite={addPokerite}
+            removePokerite={removePokerite}
+            selectSelf={() => selectPokemon(pokemon)}
+            key={pokemon.id}
+          />
+        );
       })}
     </main>
   );

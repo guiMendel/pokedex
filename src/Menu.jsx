@@ -1,28 +1,31 @@
 import React from "react";
 import "./css/styles.css";
 // icons
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiFillHome } from "react-icons/ai";
 import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
-export default function Menu({ username }) {
+export default function Menu({ username, openLogOut, openLogIn }) {
   return (
     <header>
-      <Link to="#">
-        <AiFillStar size="2rem" />
-      </Link>
+      <Route exact path="/">
+        <Link to="/pokerites">
+          <AiFillStar size="2rem" />
+        </Link>
+      </Route>
+      <Route exact path="/pokerites">
+        <Link to="/">
+          <AiFillHome size="2rem" />
+        </Link>
+      </Route>
       {/* Retorna o ícone de logar ou de deslogar */}
       {username ? (
         <div>
           <span>{username}</span>
-          <Link to="/log-out">
-            <RiLogoutBoxFill size="2rem" />
-          </Link>
+          <RiLogoutBoxFill size="2rem" onClick={openLogOut} />
         </div>
       ) : (
-        <Link to="/log-in">
-          <RiLoginBoxFill size="2rem" />
-        </Link>
+        <RiLoginBoxFill size="2rem" onClick={openLogIn} />
       )}
     </header>
   );

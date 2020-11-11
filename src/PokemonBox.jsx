@@ -5,24 +5,37 @@ import "./css/styles.css";
 import kind_color, { get_kind } from "./assets/color-relations";
 
 // icons
-import { AiOutlineStar } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
-export default function Pokemon({ name, image_url, kind }) {
+export default function Pokemon({
+  pokemon,
+  starred,
+  addPokerite,
+  removePokerite,
+  selectSelf
+}) {
+  function switchStar(event) {
+    if (starred) removePokerite(pokemon);
+    else addPokerite(pokemon);
+    event.stopPropagation();
+  }
+
   return (
-    <Link to={`/pokemon/${name}`}>
-      <div className="pokemon">
-        <div
-          style={{
-            "--color1": kind_color[get_kind(kind, 0)],
-            "--color2": kind_color[get_kind(kind, 1)]
-          }}
-        >
-          <img src={image_url} alt="" />
-        </div>
-        <AiOutlineStar size="3rem" />
-        <span>{name}</span>
+    <div className="pokemon" onClick={selectSelf}>
+      {starred ? (
+        <AiFillStar size="3rem" className="pokerite" onClick={switchStar} />
+      ) : (
+        <AiOutlineStar size="3rem" onClick={switchStar} />
+      )}
+      <div
+        style={{
+          "--color1": kind_color[get_kind(pokemon.kind, 0)],
+          "--color2": kind_color[get_kind(pokemon.kind, 1)]
+        }}
+      >
+        <img src={pokemon.image_url} alt="" />
       </div>
-    </Link>
+      <span>{pokemon.name}</span>
+    </div>
   );
 }

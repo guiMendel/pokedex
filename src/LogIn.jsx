@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./css/styles.css";
 import "./css/pop-up.css";
 
-export default function LogIn({ username, setUsername }) {
+export default function LogIn({ username, setUsername, clearPopup }) {
   const [input, setInput] = useState("");
   const [requestedUsername, setRequestedUsername] = useState("");
-  const history = useHistory();
 
   function getUser() {
     // Fazer uma requisição GET na rota https://pokedex20201.herokuapp.com/users/{input}. Verificar se houve erro. Se sim, aplicar setRequestedUsername(input), para que a página pergunte ao usuário se ele deseja criar esse novo usuário.
@@ -36,38 +34,39 @@ export default function LogIn({ username, setUsername }) {
     // );
   }
 
+  useEffect(() => {
+    if (username) clearPopup();
+  }, [username, clearPopup]);
+
   return (
-    <Link to="/" className="curtain">
-      {username ? <Redirect to="/" /> : null}
-      <div className="pop-up" onClick={(e) => e.preventDefault()}>
-        <h1>Log In</h1>
-        <label htmlFor="username" name="username">
-          Nome de Usuário
-        </label>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button onClick={getUser}>Enviar</button>
-        {requestedUsername ? (
-          <section>
-            <hr />
-            <span>
-              Não encontramos o usuário <strong>"{requestedUsername}"</strong>.
-              <br />
-              Deseja criar um novo com esse nome?
-            </span>
-            <button onClick={createUser}>Sim</button>
-            <button
-              style={{ background: "var(--red-color)" }}
-              onClick={() => setRequestedUsername("")}
-            >
-              Cancelar
-            </button>
-          </section>
-        ) : null}
-      </div>
-    </Link>
+    <div className="pop-up" onClick={(e) => e.stopPropagation()}>
+      <h1>Log In</h1>
+      <label htmlFor="username" name="username">
+        Nome de Usuário
+      </label>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={getUser}>Enviar</button>
+      {requestedUsername ? (
+        <section>
+          <hr />
+          <span>
+            Não encontramos o usuário <strong>"{requestedUsername}"</strong>.
+            <br />
+            Deseja criar um novo com esse nome?
+          </span>
+          <button onClick={createUser}>Sim</button>
+          <button
+            style={{ background: "var(--red-color)" }}
+            onClick={() => setRequestedUsername("")}
+          >
+            Cancelar
+          </button>
+        </section>
+      ) : null}
+    </div>
   );
 }
