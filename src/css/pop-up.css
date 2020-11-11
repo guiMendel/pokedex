@@ -11,6 +11,9 @@
   justify-content: center;
 
   cursor: initial;
+
+  animation-name: fadein;
+  animation-duration: 0.2s;
 }
 
 .curtain div {
@@ -150,4 +153,13 @@
 
 .pop-up hr {
   width: 80%;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

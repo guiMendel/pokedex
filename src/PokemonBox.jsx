@@ -21,7 +21,7 @@ export default function Pokemon({
   }
 
   return (
-    <div className="pokemon" onClick={selectSelf}>
+    <div className="pokemon">
       {starred ? (
         <AiFillStar size="3rem" className="pokerite" onClick={switchStar} />
       ) : (
@@ -32,6 +32,7 @@ export default function Pokemon({
           "--color1": kind_color[get_kind(pokemon.kind, 0)],
           "--color2": kind_color[get_kind(pokemon.kind, 1)]
         }}
+        onClick={selectSelf}
       >
         <img src={pokemon.image_url} alt="" />
       </div>
