@@ -83,6 +83,8 @@ header {
 
   animation-name: slide_brother_down;
   animation-duration: 2s;
+
+  text-transform: lowercase;
 }
 
 header svg {
