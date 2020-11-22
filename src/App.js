@@ -10,6 +10,7 @@ import LogOut from "./LogOut";
 import Pokedex from "./Pokedex";
 import Pokerites from "./Pokerites";
 import PokemonDetails from "./PokemonDetails";
+import axios from "axios";
 
 export default function App() {
   const [username, setUsername] = useStickyState("username");
@@ -28,12 +29,19 @@ export default function App() {
     });
   }
 
-  // Pega a lista de pokemons favoritos do usuario
-  // Não muda a parte que verifica se username é nulo! Coloca a parte da requisição no else desse if
-  // Colocar uma requisição API aqui, GET, na rota "https://pokedex20201.herokuapp.com/users/{username}"
+  // (feito) Pega a lista de pokemons favoritos do usuario
+  // (feito) Não muda a parte que verifica se username é nulo! Coloca a parte da requisição no else desse if
+  //(feito) Colocar uma requisição API aqui, GET, na rota "https://pokedex20201.herokuapp.com/users/{username}"
   // Aplicar setPokerites no atributo "pokemons" do resultado da requisição, algo como setPokerites(resultado.pokemons)
   useEffect(() => {
-    if (!username) setPokerites([]);
+    setPokerites([]);
+    if (username) {
+      axios
+        .get(`https://pokedex20201.herokuapp.com/users/${username}`)
+        .then((result) => {
+          setPokerites(result.data.pokemons);
+        });
+    }
   }, [username]);
 
   // Atualiza a lista de pokemons favoritos no servidor e aqui
@@ -49,11 +57,24 @@ export default function App() {
       return;
     }
     console.log(`Adicionando pokemon "${pokemon.name}" aos pokerites...`);
+    axios
+      .post(
+        `https://pokedex20201.herokuapp.com/users/${username}/starred/${pokemon.name}`
+      )
+      .then((result) => {
+        setPokerites([...pokerites, pokemon]);
+      })
+      .catch((result) => {
+        const msg = result.msg;
+        throw msg
+          ? msg
+          : "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde. ";
+      });
     // Colocar uma requisição API aqui, na rota POST https://pokedex20201.herokuapp.com/users/{username}/starred/{pokemon}
     // Se der erro, colha o atributo 'msg' do corpo da resposta. Execute a seguinte linha:
     // throw msg ? msg : 'Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.'
     // Se não der erro execute o seguinte:
-    setPokerites([...pokerites, pokemon]);
+    // setPokerites([...pokerites, pokemon]);
   }
 
   function removePokerite(pokemon) {
