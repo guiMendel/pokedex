@@ -15,8 +15,8 @@ export default function Pokemon({
   selectSelf
 }) {
   function switchStar(event) {
-    if (starred) removePokerite(pokemon);
-    else addPokerite(pokemon);
+    if (starred) removePokerite();
+    else addPokerite();
     event.stopPropagation();
   }
 

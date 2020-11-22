@@ -64,17 +64,18 @@ export default function App() {
       .then((result) => {
         setPokerites([...pokerites, pokemon]);
       })
-      .catch((result) => {
-        const msg = result.msg;
-        throw msg
-          ? msg
-          : "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde. ";
+      .catch((error) => {
+        if (error.message === "Request failed with status code 422") {
+          setPokerites([...pokerites, pokemon]);
+          return;
+        }
+        const msg = error.response.data.msg;
+        alert(
+          msg
+            ? msg
+            : "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde. "
+        );
       });
-    // Colocar uma requisição API aqui, na rota POST https://pokedex20201.herokuapp.com/users/{username}/starred/{pokemon}
-    // Se der erro, colha o atributo 'msg' do corpo da resposta. Execute a seguinte linha:
-    // throw msg ? msg : 'Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.'
-    // Se não der erro execute o seguinte:
-    // setPokerites([...pokerites, pokemon]);
   }
 
   function removePokerite(pokemon) {
@@ -89,11 +90,19 @@ export default function App() {
       return;
     }
     console.log(`Removendo pokemon "${pokemon.name}" dos pokerites...`);
-    // Colocar uma requisição API aqui, na rota DELETE https://pokedex20201.herokuapp.com/users/{username}/starred/{pokemon}
-    // Se der erro, colha o atributo 'msg' do corpo da resposta. Execute a seguinte linha:
-    // throw msg ? msg : 'Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.'
-    // Se não der erro execute o seguinte:
-    setPokerites(pokerites.filter((pokerite) => pokerite.id !== pokemon.id));
+
+    axios
+      .delete(
+        `https://pokedex20201.herokuapp.com/users/${username}/starred/${pokemon.name}`
+      )
+      .catch(() => {
+        return;
+      })
+      .finally((result) => {
+        setPokerites(
+          pokerites.filter((pokerite) => pokerite.id !== pokemon.id)
+        );
+      });
   }
 
   return (

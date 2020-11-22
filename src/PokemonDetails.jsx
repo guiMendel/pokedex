@@ -12,7 +12,6 @@ import kind_color from "./assets/color-relations";
 
 export default function PokemonDetails({
   starred,
-  requested_pokemon,
   addPokerite,
   removePokerite,
   pokemon
@@ -31,7 +30,6 @@ export default function PokemonDetails({
         <AiOutlineStar size="5rem" onClick={switchStar} />
       )}
       <div className="pop-up">
-        {console.log(requested_pokemon)}
         <h1>
           <span>{pokemon.name}</span>
           <small>p#{pokemon.number}</small>

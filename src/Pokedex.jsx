@@ -4,6 +4,7 @@ import "./css/styles.css";
 import axios from "axios";
 
 import { TiChevronLeft, TiChevronRight } from "react-icons/ti";
+import { ImSearch } from "react-icons/im";
 
 export default function Pokedex({
   selectPokemon,
@@ -11,13 +12,11 @@ export default function Pokedex({
   addPokerite,
   removePokerite
 }) {
-  // Quando colocar a API, tira essa inicialização do useState e deixa um objeto vazio {}
   const [page, setPage] = useState(1);
   const [inputPage, setInputPage] = useState(page);
   const [pokemons, setPokemons] = useState({});
+  const [inputSearch, setInputSearch] = useState("");
 
-  // Pega a lista de pokemons da primeira pagina
-  // (feito) Colocar uma API aqui, GET, na rota "https://pokedex20201.herokuapp.com/pokemons"
   useEffect(() => {
     axios
       .get("https://pokedex20201.herokuapp.com/pokemons")
@@ -30,20 +29,48 @@ export default function Pokedex({
   }, []);
 
   function jumpToPage(target) {
+    // Rejeita inputs vazios
+    if (!inputPage) {
+      setInputPage(page);
+      return;
+    }
     console.log(`Buscando a página ${target}...`);
     axios
       .get(`https://pokedex20201.herokuapp.com/pokemons?page=${target}`)
       .then((result) => {
-        if (result.sizze <= 0) setInputPage(page);
+        if (result.data.size <= 0) setInputPage(page);
         else {
           setPage(target);
+          setInputPage(target);
           setPokemons(result.data);
         }
       })
       .catch((result) => {
         alert("Erro no servidor");
       });
-    // (feito) Colocar uma API aqui, GET, na rota https://pokedex20201.herokuapp.com/pokemons?page=${target}``, colocar o resultado nessa variacvel result. Pode apagar essa inicialização padrão, ela só existe por enquanto que não tem a requisição.
+  }
+
+  function searchPokemon(pokemon) {
+    // Rejeita inputs vazios
+    if (!pokemon) return;
+    console.log(`Searching for pokemon ${pokemon}...`);
+    axios
+      .get(
+        `https://pokedex20201.herokuapp.com/pokemons/${pokemon.toLowerCase()}`
+      )
+      .then((result) => {
+        selectPokemon(result.data);
+      })
+      .catch(() => {
+        // Ativa a animação de inválido
+        const search_bar = document
+          .getElementById("search-bar")
+          .querySelector("input");
+        search_bar.classList = ["invalid"];
+        setTimeout(() => {
+          search_bar.classList = [];
+        }, 1000);
+      });
   }
 
   return (
@@ -61,9 +88,7 @@ export default function Pokedex({
           type="text"
           maxLength="3"
           value={inputPage}
-          onChange={(e) =>
-            setInputPage(parseInt(e.target.value, 10) || inputPage)
-          }
+          onChange={(e) => setInputPage(parseInt(e.target.value, 10) || "")}
           onKeyPress={(e) => e.key === "Enter" && jumpToPage(inputPage)}
         />
         <TiChevronRight
@@ -71,6 +96,17 @@ export default function Pokedex({
           onClick={() => pokemons.next_page && jumpToPage(page + 1)}
           // esconde se não existir essa opção
           data-active={pokemons.next_page ? true : false}
+        />
+      </div>
+      <div id="search-bar">
+        <ImSearch size="2rem" />
+        <input
+          type="text"
+          value={inputSearch}
+          onChange={(e) => setInputSearch(e.target.value)}
+          spellCheck="false"
+          onKeyPress={(e) => e.key === "Enter" && searchPokemon(inputSearch)}
+          placeholder="Procurar"
         />
       </div>
       <main>
@@ -83,15 +119,15 @@ export default function Pokedex({
                 starred={pokerites.some(
                   (pokerite) => pokerite.id === pokemon.id
                 )}
-                addPokerite={addPokerite}
-                removePokerite={removePokerite}
+                addPokerite={() => addPokerite(pokemon)}
+                removePokerite={() => removePokerite(pokemon)}
                 selectSelf={() => selectPokemon(pokemon)}
                 key={pokemon.id}
               />
             );
           })
         ) : (
-          <span>carregando... </span>
+          <span className="carregando">Carregando . . . </span>
         )}
       </main>
     </div>

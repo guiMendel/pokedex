@@ -16,6 +16,7 @@ h1 {
   --text-color: #dfeff0;
   --text-gray-color: #5e4d55;
   --bg-color: #242224;
+  --bg-gray-color: #2b292b;
   --second-color: #3f2934;
   --third-color: #522e52;
   --red-color: #722135;
@@ -256,7 +257,63 @@ main a {
   border: 5px solid var(--text-color);
 }
 
+.carregando {
+  animation-name: fadein;
+  animation-fill-mode: both;
+  animation-duration: 300ms;
+  animation-delay: 1s;
+}
+
+#search-bar {
+  height: 2rem;
+
+  margin: 3rem 5rem 4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation-name: fadein;
+  animation-duration: 400ms;
+}
+
+#search-bar input {
+  flex: 1;
+  text-align: left;
+
+  border: 0;
+  margin-left: 1rem;
+  background: var(--bg-gray-color);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem 1rem 1rem 1rem;
+
+  text-overflow: ellipsis;
+
+  color: inherit;
+
+  font-size: 1.7rem;
+}
+
+#search-bar input:focus {
+  outline: none;
+}
+
+.invalid {
+  animation-name: pulse-red;
+  animation-duration: 2s;
+}
+
 /* animações */
+
+@keyframes pulse-red {
+  from {
+    background: var(--red-color);
+  }
+
+  to {
+    background: default;
+  }
+}
 
 @keyframes slide_brother_down {
   from {
@@ -322,5 +379,9 @@ main a {
   header {
     font-size: 2rem;
     background: linear-gradient(var(--bg-color), rgb(0, 0, 0, 0));
+  }
+
+  #search-bar {
+    padding: 0 20vw;
   }
 }
